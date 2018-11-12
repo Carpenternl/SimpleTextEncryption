@@ -1,0 +1,23 @@
+﻿<Window x:Class="STE_Application.CreateKeyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:STE_Application"
+        mc:Ignorable="d"
+        Title="CreateKeyDialog" HorizontalAlignment="Left" VerticalAlignment="Top" SizeToContent="WidthAndHeight" Height="206" Width="346.933">
+    <Grid Margin="10" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Please enter a Password" Grid.Row="0" />
+        <PasswordBox x:Name="Box1" x:FieldModifier="private" Grid.Row="1" PasswordChanged="PasswordBox_PasswordChanged"   MaxLength="64"/>
+        <Label Content="Please repeat the password" Grid.Row="2"/>
+        <PasswordBox x:Name="Box2" x:FieldModifier="private" Grid.Row="3" PasswordChanged="PasswordBox_PasswordChanged" MaxLength="64" />
+        <Button x:Name="OKButton" Click="EncryptionStart" x:FieldModifier="private" Content="OK" IsDefault="true" Grid.Row="4" Background="LimeGreen" Margin="0,5" IsEnabled="False"/>
+    </Grid>
+</Window>
