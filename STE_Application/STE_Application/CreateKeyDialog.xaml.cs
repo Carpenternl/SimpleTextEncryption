@@ -21,6 +21,8 @@ namespace STE_Application
     /// </summary>
     public partial class CreateKeyDialog : Window
     {
+        internal delegate void EncryptionHandler(ICryptoTransform ict, byte[] LockData);
+        internal event EncryptionHandler EncryptReady;
         public CreateKeyDialog()
         {
             InitializeComponent();
@@ -39,6 +41,22 @@ namespace STE_Application
 
         private void EncryptionStart(object sender, RoutedEventArgs e)
         {
+            using(AesManaged CryptoKeeper = new AesManaged())
+            {
+                byte[] NaCl = new byte[16];
+                new RNGCryptoServiceProvider().GetBytes(NaCl);
+                byte[] KeyBytes = new Rfc2898DeriveBytes(Box1.Password, NaCl).GetBytes(16);
+                byte[] Hash = new Rfc2898DeriveBytes(KeyBytes, NaCl,1000).GetBytes(16);
+                byte[] salt_Hash = new byte[NaCl.Length + Hash.Length];
+                Array.Copy(NaCl, salt_Hash, 16);
+                Array.Copy(Hash, 0, salt_Hash, 16, 16);
+                CryptoKeeper.Key = KeyBytes;
+                CryptoKeeper.IV = NaCl;
+                ICryptoTransform CryptoMonkey = CryptoKeeper.CreateEncryptor();
+                EncryptReady(CryptoMonkey, salt_Hash);
+                this.DialogResult = true;
+            }
+            
         }
     }
 }

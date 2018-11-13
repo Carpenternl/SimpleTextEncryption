@@ -7,11 +7,18 @@
         mc:Ignorable="d"
         Background="WhiteSmoke"
         Title="SimpleTextEncryption - Hugo timmerman - 2018" Height="450" Width="800">
-
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="TBS">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="389*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
 
@@ -34,9 +41,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border>
-            <TextBlock Grid.Column="0" x:Name="Plain" Background="White" Margin="5"/>
+            <TextBlock Grid.Column="0" x:Name="Plain" Style="{DynamicResource TBS}"/>
             </Border>
-            <TextBlock Grid.Column="1" x:Name="Secret" Background="White" Margin="5"/>
+            <TextBlock Grid.Column="1" x:Name="Secret" Style="{DynamicResource TBS}"/>
         </Grid>
+        <Label Grid.Row="2" Content="Use the Menu-items above to open, save, decrypt and encrypt a simple .txt file"/>
     </Grid>
 </Window>
